@@ -1,5 +1,4 @@
 import React from 'react';
-import "./agente.scss";
 import LogoutIcon from '@mui/icons-material/Logout';
 
 

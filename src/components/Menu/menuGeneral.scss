@@ -1,0 +1,71 @@
+$hoverColor: #c08c8c;
+$font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+.Sidebar {
+    height: 100%;
+    width: 15em;
+    background-color: #dea5a5;
+    display: flex;
+    flex-direction: column;
+    .SidebarList {
+        height: auto;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        a{
+            padding: 20px;
+            text-decoration: none;
+            color: black;
+        }
+        .row {
+            cursor: pointer;
+            padding: 19px 0;
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            font-family: $font;
+            &:hover{
+                background-color: $hoverColor;
+            }
+            .icon {
+                flex: 30%;
+                display: grid;
+                place-items: center;
+            }
+            .title {
+                flex: 70%;
+            }
+            &.active {
+                background-color: $hoverColor;
+            }
+        }
+    }
+    .navb{
+        flex: 2;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        .userInfo{
+            display: flex;
+            .icono {
+                width: auto;
+                height: auto;
+                padding: 0 10px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .nombre{
+                font-family: $font;
+                font-weight: bold;
+                font-size: 18px;
+                margin: 6px 0;
+                padding-left: 5px;
+            }
+        }
+    }
+}

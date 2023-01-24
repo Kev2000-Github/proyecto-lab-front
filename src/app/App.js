@@ -1,7 +1,7 @@
 import React from 'react';
-import "../components/MenuAdmin/index.scss";
 import { HomePage } from '../pages/Home'
 import { BrowserRouter, Route } from 'react-router-dom';
+import './index.scss'
 
 function App() { 
   return (
