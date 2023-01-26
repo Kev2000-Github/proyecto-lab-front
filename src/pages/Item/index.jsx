@@ -4,6 +4,7 @@ import { useMutation, useQuery } from 'react-query';
 import { deleteItem, getItems } from '../../services/item.service';
 import { useEffect } from 'react';
 import { swalClose, swalError, swalLoading, swalQuestion, swalSuccess } from '../../utils/swal';
+import './index.scss'
 
 export function ItemPage() {
   
@@ -77,9 +78,9 @@ export function ItemPage() {
   
   
   return (
-    <>
-      {/* <Sidebar type="ADMIN"/> */}
+    <div className='itemBody'>
+      <Sidebar type="ADMIN"/>
       <TableComponent data={data} columns={columns} actions={actions} />
-    </>
+    </div>
   );
 }
