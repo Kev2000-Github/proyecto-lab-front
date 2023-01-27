@@ -5,6 +5,7 @@ import { deleteItem, getItems } from '../../services/item.service';
 import { useEffect } from 'react';
 import { swalClose, swalError, swalLoading, swalQuestion, swalSuccess } from '../../utils/swal';
 import './index.scss'
+import { getRol } from '../../utils/helper';
 
 export function ItemPage() {
   
@@ -79,7 +80,7 @@ export function ItemPage() {
   
   return (
     <div className='itemBody'>
-      <Sidebar type="ADMIN"/>
+      <Sidebar type={getRol()}/>
       <TableComponent data={data} columns={columns} actions={actions} />
     </div>
   );
