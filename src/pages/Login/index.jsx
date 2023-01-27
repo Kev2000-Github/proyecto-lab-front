@@ -1,7 +1,7 @@
 import React from "react"
 import { swalClose, swalError, swalLoading } from '../../utils/swal';
 import { useMutation } from "react-query";
-import { signin } from "../../services/login.service";
+import { signin } from "../../services/session.service";
 import './style.scss';
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";

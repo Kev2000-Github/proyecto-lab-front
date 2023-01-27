@@ -5,6 +5,7 @@ import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { deleteRol, deleteSessionId } from '../../../utils/helper';
+import { logout } from '../../../services/session.service';
 
 export const SidebarData = [
     {
@@ -35,9 +36,14 @@ export const SidebarData = [
         title: "Logout",
         icon: <LogoutIcon />,
         link: "/",
-        onClick: () => {
-            deleteSessionId()
-            deleteRol()
+        onClick: async (e, history) => {
+            e.preventDefault()
+            const resp = await logout()
+            if(resp){
+                deleteSessionId()
+                deleteRol()
+                history.push('/')
+            }
         }
     }
 ]
