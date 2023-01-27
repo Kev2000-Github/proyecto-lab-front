@@ -1,5 +1,6 @@
 import React from 'react';
 import { HomePage } from '../pages/Home'
+import { Login } from '../pages/Login'
 import { BrowserRouter, Route } from 'react-router-dom';
 import { ItemPage } from '../pages/Item';
 import './index.scss'
@@ -11,7 +12,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Route exact path="/" component={HomePage}/>
+        <Route exact path="/" component={Login}/>
         <Route exact path="/medicinas" component={ItemPage}/>
       </BrowserRouter>
       </QueryClientProvider>
