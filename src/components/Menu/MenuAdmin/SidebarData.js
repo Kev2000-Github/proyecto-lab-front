@@ -21,6 +21,12 @@ export const SidebarData = [
         onClick: () => {}
     },
     {
+        title: "Sucursales",
+        icon: <GroupsOutlinedIcon />,
+        link: "/sucursales",
+        onClick: () => {}
+    },
+    {
         title: "Reporte",
         icon: <AssessmentOutlinedIcon />,
         link: "/reporte",

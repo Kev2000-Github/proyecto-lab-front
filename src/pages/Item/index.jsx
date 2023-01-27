@@ -76,12 +76,17 @@ export function ItemPage() {
       },
     },
   ];
-  
-  
   return (
     <div className='itemBody'>
       <Sidebar type={getRol()}/>
-      <TableComponent data={data} columns={columns} actions={actions} />
+      <div className='main'>
+        <div className='card'>
+          <TableComponent 
+            data={data} 
+            columns={columns} 
+            actions={actions} />
+        </div>
+      </div>
     </div>
   );
 }

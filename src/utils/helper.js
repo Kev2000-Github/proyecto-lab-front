@@ -45,7 +45,7 @@ const Put = async (link, body) => {
       }
     }
     catch (err) {
-      //notify(err.response?.data?.message, 'error')
+      throw err
     }
   }
   
@@ -71,7 +71,7 @@ const Put = async (link, body) => {
       }
     }
     catch (err) {
-      //notify(err.response?.data?.message, 'error')
+      throw err
     }
   }
   
@@ -84,7 +84,7 @@ const Put = async (link, body) => {
       }
     }
     catch (err) {
-      //notify(err.response?.data?.message, 'error')
+      throw err
     }
   }
   
