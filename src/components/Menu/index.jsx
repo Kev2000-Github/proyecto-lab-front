@@ -16,7 +16,7 @@ export function Sidebar({ type }) {
         {(type === roles.ADMIN? SidebarData : SidebarDataAgente)
             .map((val, key) => {
                 return (
-                <Link to={val.link}>
+                <Link onClick={val.onClick} to={val.link}>
                 <li 
                     key={key} 
                     className={`
