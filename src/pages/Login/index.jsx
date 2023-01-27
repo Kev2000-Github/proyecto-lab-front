@@ -6,6 +6,8 @@ import './style.scss';
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { setRol, setSessionId } from "../../utils/helper";
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
 
 
 export function Login() {
@@ -40,23 +42,23 @@ export function Login() {
       <div className="wrapper">
           <header>FARMACIA LOGIN</header>
           <form onSubmit={handleSubmit}>
-              <div className="field email">
-                  <div className="input-area">
-                      <input type="text" placeholder=" Email"/>
-                      <i className="icon fas fa-envelope"></i>
-                      <i className="error error-icon fas fa-exclamation-circle"></i>
-                  </div>
-                  <div className="error error-txt">Email no puede estar vacio</div>
-              </div>
-              <div className="field password">
-                  <div className="input-area">
-                      <input type="password" placeholder=" Contraseña"/>
-                      <i className="icon fas fa-lock"></i>
-                      <i className="error error-icon fas fa-exclamation-circle"></i>
-                  </div>
-                  <div className="error error-txt">Password no puede estar vacio</div>
-              </div>
-              <input type="submit" value="Login"/>
+            <div className="contenfrom">
+                <div className="field email">
+                    <div className="input-area">
+                        <PersonIcon/>
+                        <input type="text" placeholder=" Username"/>
+                    </div>
+                    <div className="error error-txt">Email no puede estar vacio</div>
+                </div>
+                <div className="field password">
+                    <div className="input-area">
+                        <LockIcon/>
+                        <input type="password" placeholder=" Password"/>
+                    </div>
+                    <div className="error error-txt">Password no puede estar vacio</div>
+                </div>
+                <input type="submit" value="Login"/>
+            </div>
           </form>
       </div>
       </div>
