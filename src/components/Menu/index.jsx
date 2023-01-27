@@ -17,9 +17,8 @@ export function Sidebar({ type }) {
         {(type === roles.ADMIN? SidebarData : SidebarDataAgente)
             .map((val, key) => {
                 return (
-                <Link onClick={(e) => val.onClick(e, history)} to={val.link}>
+                <Link key={key} onClick={(e) => val.onClick(e, history)} to={val.link}>
                 <li 
-                    key={key} 
                     className={`
                         row 
                         ${location.pathname === val.link ? "active": ""}

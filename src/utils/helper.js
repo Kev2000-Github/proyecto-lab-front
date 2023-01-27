@@ -3,6 +3,20 @@ import axios from 'axios'
 
 export const transport = axios
 
+transport.interceptors.response.use((response) => response, async function (error) {
+  const originalRequest = error.config;
+  console.log('originalRequest=', originalRequest)
+  const role = getRol()
+  if (
+    (error.response.status === 403 && 
+    originalRequest.url.indexOf("/session") === -1) ||
+    !role
+    ) {
+    return window.location.replace('/')
+  }
+  return Promise.reject(error)
+})
+
 export const getSessionId = () => localStorage.getItem('sessionId')
 export const getRol = () => localStorage.getItem('rol')
 
