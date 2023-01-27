@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import { Sidebar } from "../../components/Menu";
 import TableComponent from "../../components/Table";
 import { useMutation, useQuery } from "react-query";
@@ -6,12 +5,13 @@ import { deleteItem, getItems } from "../../services/item.service";
 import { useEffect } from "react";
 import {
   swalClose,
+  swalError,
   swalLoading,
   swalQuestion,
   swalSuccess,
 } from "../../utils/swal";
 import "./index.scss";
-import { Box, Button, Grid } from "@mui/material";
+import { getRol } from "../../utils/helper";
 import { useHistory } from "react-router-dom";
 
 export function ItemPage() {
@@ -88,23 +88,14 @@ export function ItemPage() {
       },
     },
   ];
-
   return (
     <div className="itemBody">
-      <Sidebar type="ADMIN" />
-
-      <Grid className="section" container justifyContent={"space-between"}>
-        <Grid item sm={12}>
-          {" "}
-          <h2> Listado de Medicinas</h2>
-          <Box display="flex" justifyContent="flex-end">
-            <Button variant="contained" onClick={handleCreateItem}>
-              Crear Medicina
-            </Button>
-          </Box>
+      <Sidebar type={getRol()} />
+      <div className="main">
+        <div className="card">
           <TableComponent data={data} columns={columns} actions={actions} />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </div>
   );
 }

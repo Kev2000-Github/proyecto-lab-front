@@ -4,19 +4,20 @@ import "./menuGeneral.scss";
 import { SidebarData } from './MenuAdmin/SidebarData';
 import { SidebarDataAgente } from './MenuAgente/SidebarDataAgente'
 import { PerfilUsuario } from "./MenuAdmin/PerfilUsuario";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { PerfilAgente } from './MenuAgente/PerfilAgente';
 import { roles } from '../../utils/constants';
 
 export function Sidebar({ type }) {
     const location = useLocation()
-
+    const history = useHistory()
+    
     return <div className='Sidebar'>
       <ul className='SidebarList'>   
         {(type === roles.ADMIN? SidebarData : SidebarDataAgente)
             .map((val, key) => {
                 return (
-                <Link key={key} to={val.link}>
+                <Link key={key} onClick={(e) => val.onClick(e, history)} to={val.link}>
                 <li 
                     className={`
                         row 
