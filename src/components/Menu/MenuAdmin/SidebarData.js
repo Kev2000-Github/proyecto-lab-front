@@ -11,7 +11,7 @@ export const SidebarData = [
     {
         title: "Medicinas",
         icon: <AddToQueueOutlinedIcon />,
-        link: "/medicinas",
+        link: "/drugs",
         onClick: () => {}
     },
     {
