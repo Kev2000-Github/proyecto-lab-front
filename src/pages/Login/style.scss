@@ -26,13 +26,12 @@ background-color: rgba(255, 255, 255, 0.50);
 }
 
 .wrapper header {
-font-size: 30px;
-font-weight: 600;
-font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-padding-top: 45px;
-color: rgba(121, 121, 121, 0.664);
-
-}
+  font-size: 30px;
+  font-weight: 600;
+  font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding-top: 45px;
+  color: rgba(121, 121, 121, 0.664);
+  }  
 
 .wrapper form {
 margin: 40px 0;
@@ -133,4 +132,14 @@ transition: all 0.3s ease;
 
 form input[type="submit"]:hover {
 background: #2c52ed;
+}
+
+@media (max-width: 400px){
+  .wrapper header {
+    font-size: 20px;
+    font-weight: 600;
+    font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-top: 45px;
+    color: rgba(121, 121, 121, 0.664);
+    }  
 }
