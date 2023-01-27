@@ -8,6 +8,7 @@ import { getItem, updatedItem } from "../../../services/item.service";
 import { useEffect } from "react";
 import { swalClose, swalLoading, swalSuccess } from "../../../utils/swal";
 import { userSchema } from "../../../schemas/item.schema";
+import { getRol } from "../../../utils/helper";
 
 export function EditItem() {
   const { id } = useParams();
@@ -18,7 +19,7 @@ export function EditItem() {
   const handleUpdatedItem = useMutation(async (data) => {
     swalLoading();
     const updateItemData = await updatedItem(id, data);
-    swalSuccess('Medicina actualizada');
+    swalSuccess("Medicina actualizada");
     return updateItemData;
   });
 
@@ -47,9 +48,9 @@ export function EditItem() {
 
   return (
     <div className="itemBody">
-      <Sidebar type="ADMIN" />
-      <Grid className="section" container>
-        <Grid item xs={12}>
+      <Sidebar type={getRol()} />
+      <div className="main">
+        <div className="card">
           <h2> Editar Medicina</h2>
           {data && (
             <ItemForm
@@ -61,8 +62,8 @@ export function EditItem() {
               onSubmitItem={onSubmit}
             />
           )}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </div>
   );
 }

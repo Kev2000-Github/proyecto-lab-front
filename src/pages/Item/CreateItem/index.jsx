@@ -2,11 +2,11 @@
 import { useHistory } from "react-router-dom";
 import { Sidebar } from "../../../components/Menu";
 import ItemForm from "../../../components/Forms/Item/ItemForm";
-import { Grid } from "@mui/material";
 import { useMutation } from "react-query";
 import { createItem } from "../../../services/item.service";
 import { swalLoading, swalSuccess } from "../../../utils/swal";
 import { userSchema } from "../../../schemas/item.schema";
+import { getRol } from "../../../utils/helper";
 
 export function CreateItem() {
   const history = useHistory();
@@ -29,13 +29,13 @@ export function CreateItem() {
 
   return (
     <div className="itemBody">
-      <Sidebar type="ADMIN" />
-      <Grid className="section" container>
-        <Grid item xs={12}>
+      <Sidebar type={(getRol())} />
+      <div className="main">
+        <div className="card">
           <h2> Crear Medicina</h2>
           <ItemForm schema={userSchema} onSubmitItem={onSubmit} />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </div>
   );
 }

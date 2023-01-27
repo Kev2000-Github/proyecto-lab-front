@@ -5,7 +5,6 @@ import { deleteItem, getItems } from "../../services/item.service";
 import { useEffect } from "react";
 import {
   swalClose,
-  swalError,
   swalLoading,
   swalQuestion,
   swalSuccess,
@@ -13,6 +12,7 @@ import {
 import "./index.scss";
 import { getRol } from "../../utils/helper";
 import { useHistory } from "react-router-dom";
+import { Button } from "@mui/material";
 
 export function ItemPage() {
   const history = useHistory();
@@ -93,6 +93,7 @@ export function ItemPage() {
       <Sidebar type={getRol()} />
       <div className="main">
         <div className="card">
+          <Button variant={"contained"} onClick={handleCreateItem}> Crear</Button>
           <TableComponent data={data} columns={columns} actions={actions} />
         </div>
       </div>
