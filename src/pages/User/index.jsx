@@ -1,11 +1,12 @@
 import { Sidebar } from '../../components/Menu';
 import TableComponent from '../../components/Table';
 import { useMutation, useQuery } from 'react-query';
-import { useEffect } from 'react';
-import { swalClose, swalError, swalLoading, swalQuestion } from '../../utils/swal';
+import { useEffect, useState } from 'react';
+import { swalClose, swalLoading, swalQuestion } from '../../utils/swal';
 import './index.scss'
 import { getRol } from '../../utils/helper';
 import { deleteUser, getUsers } from '../../services/user.service';
+import { config } from '../../config';
 
 const columns = [
   { id: 'username', label: 'Nombre de Usuario' },
@@ -14,28 +15,30 @@ const columns = [
 ];
 
 export function UserPage() {
-  
+  const [data, setData] = useState([])
   const usersQuery = useQuery('users-query', getUsers, {
-    retry: 0,
+    ...config.defaultReactQuery,
     onSuccess: (resp) => {
-      swalClose()
       resp.data = resp.data.map(user => {
         const userParsed = user
         userParsed.Subsidiary = user.Subsidiary?.name
         return userParsed
       })
-    },
-    onError: (err) => {
-        swalError("Ha ocurrido un error", err.response?.data?.error?.message);
     }
   })
 
-  const handleDeleteUser = useMutation(
-    async (id) => {
-      const response =  await deleteUser(id)
-      if (response) usersQuery.refetch();
-    }
-  )
+  const handleDeleteUser = useMutation(deleteUser, {
+    onError: config.defaultOnErrorQuery,
+    onSuccess: () => usersQuery.refetch()
+  })
+
+  useEffect(()=>{
+    usersQuery.refetch()
+  },[])
+
+  useEffect(() =>{
+    if(usersQuery.isSuccess) setData(usersQuery?.data?.data)
+  },[usersQuery.isSuccess])
 
   useEffect(() => {
     if (usersQuery.isLoading) swalLoading()
@@ -44,10 +47,7 @@ export function UserPage() {
 
   useEffect(() => {
     if (handleDeleteUser.isLoading) swalLoading()
-    else swalClose()
   }, [handleDeleteUser.isLoading]);
-
-  const data = usersQuery?.data?.data ?? [];
   
   const actions = [
     {

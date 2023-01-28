@@ -5,7 +5,8 @@ export const getItems = async () => {
     return items
 }
 
-export const getItem = async (id) => {
+export const getItem = async ({queryKey}) => {
+    const id = queryKey[1]
     const item = await sendRequest.Get(`${process.env.REACT_APP_URL}/item/${id}`)
     return item
 }

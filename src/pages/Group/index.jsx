@@ -1,30 +1,33 @@
 import { Sidebar } from '../../components/Menu';
 import TableComponent from '../../components/Table';
 import { useMutation, useQuery } from 'react-query';
-import { useEffect } from 'react';
-import { swalClose, swalError, swalLoading, swalQuestion } from '../../utils/swal';
+import { useEffect, useState } from 'react';
+import { swalClose, swalLoading, swalQuestion } from '../../utils/swal';
 import { getRol } from '../../utils/helper';
 import { deleteGroup, getGroups } from '../../services/group.service';
+import { config } from '../../config';
 
 const columns = [
   { id: 'name', label: 'Nombre' },
 ];
 
 export function GroupPage() {
-  
-  const groupsQuery = useQuery('groups-query', getGroups, {
-    retry: 0,
-    onError: (err) => {
-        swalError("Ha ocurrido un error", err.response?.data?.error?.message);
-    }
-  })
-
+  const [data, setData] = useState([])
+  const groupsQuery = useQuery('groups-query', getGroups, config.defaultReactQuery)
   const handleDeleteGroup = useMutation(
     async (id) => {
       const response =  await deleteGroup(id)
       if (response) groupsQuery.refetch();
     }
   )
+
+  useEffect(() => {
+    groupsQuery.refetch()
+  },[])
+
+  useEffect(() => {
+    if(groupsQuery.isSuccess) setData(groupsQuery?.data?.data)
+  }, [groupsQuery.isSuccess])
 
   useEffect(() => {
     if (groupsQuery.isLoading) swalLoading()
@@ -36,7 +39,6 @@ export function GroupPage() {
     else swalClose()
   }, [handleDeleteGroup.isLoading]);
 
-  const data = groupsQuery?.data?.data ?? [];
   
   const actions = [
     {

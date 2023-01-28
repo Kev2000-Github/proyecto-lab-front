@@ -8,7 +8,7 @@ transport.interceptors.response.use((response) => response, async function (erro
   console.log('originalRequest=', originalRequest)
   const role = getRol()
   if (
-    (error.response.status === 403 && 
+    (error.response.status === 401 && 
     originalRequest.url.indexOf("/session") === -1) ||
     !role
     ) {

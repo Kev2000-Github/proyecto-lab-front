@@ -5,18 +5,16 @@ import { useEffect } from 'react';
 import { swalClose, swalError, swalLoading, swalQuestion } from '../../utils/swal';
 import { getRol } from '../../utils/helper';
 import { getSubsidiaries, deleteSubsidiary } from '../../services/subsidiary.service';
+import { config } from '../../config';
+import { useState } from 'react';
 
 const columns = [
   { id: 'name', label: 'Nombre' },
 ];
 
 export function SubsidiaryPage() {
-  const subsidiariesQuery = useQuery('subsidiaries-query', getSubsidiaries, {
-    retry: 0,
-    onError: (err) => {
-        swalError("Ha ocurrido un error", err.response?.data?.error?.message);
-    }
-  })
+  const [data, setData] = useState([])
+  const subsidiariesQuery = useQuery('subsidiaries-query', getSubsidiaries, config.defaultReactQuery)
 
   const handleDeleteSubsidiary = useMutation(
     async (id) => {
@@ -24,6 +22,14 @@ export function SubsidiaryPage() {
       if (response) subsidiariesQuery.refetch();
     }
   )
+
+  useEffect(() => {
+    subsidiariesQuery.refetch()
+  },[])
+
+  useEffect(() => {
+    if(subsidiariesQuery.isSuccess) setData(subsidiariesQuery?.data?.data)
+  },[subsidiariesQuery.isSuccess])
 
   useEffect(() => {
     if (subsidiariesQuery.isLoading) swalLoading()
@@ -34,8 +40,6 @@ export function SubsidiaryPage() {
     if (handleDeleteSubsidiary.isLoading) swalLoading()
     else swalClose()
   }, [handleDeleteSubsidiary.isLoading]);
-
-  const data = subsidiariesQuery?.data?.data ?? [];
   
   const actions = [
     {

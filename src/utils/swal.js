@@ -39,11 +39,12 @@ export const swalQuestion = async (
   })
 }
 
-export const swalSuccess = (title = 'Éxito', text = null) => {
-  void Swal.fire({
+export const swalSuccess = (title = 'Éxito', text = null, onAccept = () => {}) => {
+  return Swal.fire({
     icon: 'success',
     title,
     text: text ?? '',
-    confirmButtonText: 'Aceptar'
+    confirmButtonText: 'Aceptar',
+    didClose: onAccept
   })
 }

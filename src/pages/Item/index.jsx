@@ -3,24 +3,31 @@ import TableComponent from "../../components/Table";
 import { useMutation, useQuery } from "react-query";
 import { deleteItem, getItems } from "../../services/item.service";
 import { useEffect } from "react";
+import { config } from '../../config'
 import {
   swalClose,
   swalLoading,
   swalQuestion,
   swalSuccess,
+  swalError
 } from "../../utils/swal";
 import "./index.scss";
 import { getRol } from "../../utils/helper";
 import { useHistory } from "react-router-dom";
 import { Button } from "@mui/material";
+import { useState } from "react";
+
+const columns = [
+  { id: "code", label: "Código" },
+  { id: "name", label: "Nombre" },
+  { id: "description", label: "Descripción" },
+  { id: "photo", label: "Foto", format: (value) => <img alt="medicine-icon" src={value} />},
+];
 
 export function ItemPage() {
+  const [data, setData] = useState([])
   const history = useHistory();
-  const itemsQuery = useQuery("items-query", async () => await getItems(), {
-    enabled: true,
-    retry: 0,
-  });
-
+  const itemsQuery = useQuery("items-query", getItems, config.defaultReactQuery);
   const handleDeleteItem = useMutation(async (id) => {
     const response = await deleteItem(id);
     if (response) {
@@ -30,34 +37,22 @@ export function ItemPage() {
   });
 
   useEffect(() => {
-    if (itemsQuery.isLoading) {
-      swalLoading();
-    }
-    if (itemsQuery.isSuccess) {
-      swalClose();
-    }
-  }, [itemsQuery.isLoading, itemsQuery.isSuccess]);
+    itemsQuery.refetch()
+  },[])
 
   useEffect(() => {
-    if (handleDeleteItem.isLoading) {
-      swalLoading();
-    }
+    if(itemsQuery.isSuccess) setData(itemsQuery?.data?.data)
+  },[itemsQuery.isSuccess])
+
+  useEffect(() => {
+    if (itemsQuery.isLoading) swalLoading();
+    else swalClose();
+  }, [itemsQuery.isLoading]);
+
+  useEffect(() => {
+    if (handleDeleteItem.isLoading) swalLoading();
+    else swalClose()
   }, [handleDeleteItem.isLoading]);
-
-  const data = itemsQuery?.data?.data ?? [];
-
-  const columns = [
-    { id: "code", label: "Código" },
-    { id: "name", label: "Nombre" },
-    { id: "description", label: "Descripción" },
-    {
-      id: "photo",
-      label: "Foto",
-      format: (value) => {
-        return <img src={value} />;
-      },
-    },
-  ];
 
   const handleCreateItem = () => {
     history.push("/drugs/create");
@@ -74,17 +69,9 @@ export function ItemPage() {
     {
       label: "Borrar",
       color: "error",
-      onClick: (row) => {
-        swalQuestion(
-          "¿Estás seguro?",
-          "No podrás revertir esto",
-          "warning",
-          "Sí, borrar"
-        ).then((result) => {
-          if (result.isConfirmed) {
-            handleDeleteItem.mutate(row.id);
-          }
-        });
+      onClick: async (row) => {
+        const {isConfirmed} = await swalQuestion('¿Estás seguro?', 'No podrás revertir esto')
+        if(isConfirmed) handleDeleteItem.mutate(row.id)
       },
     },
   ];

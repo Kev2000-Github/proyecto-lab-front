@@ -31,6 +31,17 @@ const ItemForm = ({
       sx={{ mt: 3 }}
     >
       <Grid container spacing={2}>
+      <Grid item xs={12}>
+          <TextField
+            fullWidth
+            error={!!errors.code}
+            helperText={errors.code?.message}
+            {...register("code")}
+            name="code"
+            label="Código"
+            disabled={disabledFields.code}
+          />
+        </Grid>
         <Grid item xs={12}>
           <TextField
             fullWidth
@@ -62,17 +73,6 @@ const ItemForm = ({
             name="photo"
             label="Url de la foto"
             disabled={disabledFields.photo}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            error={!!errors.code}
-            helperText={errors.code?.message}
-            {...register("code")}
-            name="code"
-            label="Código"
-            disabled={disabledFields.code}
           />
         </Grid>
         <Grid item xs={12}>

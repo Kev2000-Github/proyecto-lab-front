@@ -1,41 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Sidebar } from "../../../components/Menu";
 import ItemForm from "../../../components/Forms/Item/ItemForm";
 import { Grid } from "@mui/material";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getItem, updatedItem } from "../../../services/item.service";
 import { useEffect } from "react";
-import { swalClose, swalLoading, swalSuccess } from "../../../utils/swal";
+import { swalClose, swalLoading, swalSuccess, swalError } from "../../../utils/swal";
 import { userSchema } from "../../../schemas/item.schema";
 import { getRol } from "../../../utils/helper";
+import { useState } from "react";
+import { config } from "../../../config";
 
 export function EditItem() {
+  const [data, setData] = useState()
+  const history = useHistory()
   const { id } = useParams();
-  const handleGetItem = useMutation(async (id) => {
-    return await getItem(id);
-  });
+  const handleGetItem = useQuery(["items-query", id], getItem, config.defaultReactQuery);
+
+  useEffect(() => {
+    if(handleGetItem.isSuccess) setData(handleGetItem?.data?.data)
+  }, [handleGetItem.isSuccess])
+
+  useEffect(() => {
+    if (handleGetItem.isLoading) swalLoading()
+    else swalClose();
+  }, [handleGetItem.isLoading]);
 
   const handleUpdatedItem = useMutation(async (data) => {
     swalLoading();
-    const updateItemData = await updatedItem(id, data);
-    swalSuccess("Medicina actualizada");
-    return updateItemData;
+    await updatedItem(id, data);
+    swalSuccess("Medicina actualizada", null, () => history.push('/drugs'));
   });
-
-  const data = handleGetItem?.data?.data;
-
-  useEffect(() => {
-    if (id) handleGetItem.mutate(id);
-  }, [id]);
-
-  useEffect(() => {
-    if (handleGetItem.isLoading) {
-      swalLoading();
-    } else {
-      swalClose();
-    }
-  }, [handleGetItem.isLoading]);
 
   const onSubmit = (data) => {
     handleUpdatedItem.mutate({
