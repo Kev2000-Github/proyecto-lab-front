@@ -6,6 +6,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { deleteRol, deleteSessionId } from '../../../utils/helper';
 import { logout } from '../../../services/session.service';
+import { swalClose, swalLoading } from '../../../utils/swal';
 
 export const SidebarData = [
     {
@@ -44,10 +45,12 @@ export const SidebarData = [
         link: "/",
         onClick: async (e, history) => {
             e.preventDefault()
+            swalLoading()
             const resp = await logout()
             if(resp){
                 deleteSessionId()
                 deleteRol()
+                swalClose()
                 history.push('/')
             }
         }

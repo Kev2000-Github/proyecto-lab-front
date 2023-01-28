@@ -1,7 +1,12 @@
 import { sendRequest } from "../utils/helper"
 
-export const getItems = async () => {
-    const items = await sendRequest.Get(`${process.env.REACT_APP_URL}/item`)
+export const getItems = async ({queryKey}) => {
+    const page = queryKey[1]
+    const limit = queryKey[2]
+    const group = queryKey[3]
+    const params = `?page=${page}&limit=${limit}${group ? `&groups=${group}` : ''}` 
+    const link = `${process.env.REACT_APP_URL}/item${params}`
+    const items = await sendRequest.Get(link)
     return items
 }
 

@@ -1,9 +1,12 @@
+$font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 body, #root{
     height: 100vh;
     margin: 0;
     padding: 0;
     background-image: radial-gradient(circle at 74.18% 116.45%,
     #fdffff 0, #eeffff 25%, #defcfc 50%, #cef5f7 75%, #bfeef4 100%);
+    font-family: $font
 }
 .section {
     padding-left: 1.5rem;

@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ItemPage } from "../pages/Item";
-import "./index.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { EditItem } from "../pages/Item/EditItem.jsx";
 import { CreateItem } from "../pages/Item/CreateItem";
@@ -9,6 +8,7 @@ import { Login } from "../pages/Login";
 import { UserPage } from "../pages/User";
 import { GroupPage } from "../pages/Group";
 import { SubsidiaryPage } from "../pages/Subsidiary";
+import "./index.scss";
 
 function App() {
   const queryClient = new QueryClient();

@@ -2,3 +2,18 @@
     display: flex;
     height: 100%;
 }
+
+.item-icon{
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    overflow: hidden;
+    .item-img{
+        width: inherit;
+        height: inherit;
+    }
+}
+
+.card-create-btn{
+    background:red;
+}

@@ -1,5 +1,4 @@
 $hoverColor: #c08c8c;
-$font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
 .Sidebar {
     height: 100%;
@@ -23,7 +22,6 @@ $font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Ar
             list-style-type: none;
             display: flex;
             align-items: center;
-            font-family: $font;
             &:hover{
                 background-color: $hoverColor;
             }
@@ -60,7 +58,6 @@ $font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Ar
                 align-items: center;
             }
             .nombre{
-                font-family: $font;
                 font-weight: bold;
                 font-size: 18px;
                 margin: 6px 0;

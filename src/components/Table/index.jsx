@@ -5,9 +5,9 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow,
+  TableRow
 } from "@material-ui/core";
-import { Button } from "@mui/material";
+import { Button, Paper, TableContainer, TablePagination } from "@mui/material";
 
 const useStyles = makeStyles({
   table: {
@@ -18,45 +18,82 @@ const useStyles = makeStyles({
   },
 });
 
-const TableComponent = ({ data, columns, actions }) => {
+const ROWS_PER_PAGE = [5, 10, 15]
+const ROW_HEIGHT = 89
+const HEADER_HEIGHT = 57
+const TABLE_MAX_HEIGHT = ROW_HEIGHT * ROWS_PER_PAGE[0] + HEADER_HEIGHT
+
+const TableComponent = ({ 
+    data, 
+    columns, 
+    actions,
+    page = 0,
+    totalCount = 0,
+    rowsPerPage = 5,
+    handleRowsPerPage,
+    handlePage
+  }) => {
+  const emptyRows = Math.max(0, rowsPerPage - data.length);
   const classes = useStyles();
   return (
-    <Table className={classes.table} aria-label="simple table">
-      <TableHead>
-        <TableRow>
-          {columns.map((column) => (
-            <TableCell key={column.id}>{column.label}</TableCell>
-          ))}
-          {actions && <TableCell>Acciones</TableCell>}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {data.map((row) => (
-          <TableRow key={row.id}>
-            {columns.map((column) => (
-              <TableCell key={column.id}>
-                {column.format ? column.format(row[column.id]) : row[column.id]}
-              </TableCell>
-            ))}
-            {actions && (
-              <TableCell>
-                {actions.map((action) => (
-                  <Button
-                    color={action.color}
-                    variant="contained"
-                    className={classes.button}
-                    key={action.label}
-                    onClick={() => action.onClick(row)}
-                  >
-                    {action.label}
-                  </Button>
+    <Paper>
+      <TableContainer sx={{ maxHeight: TABLE_MAX_HEIGHT }} >
+        <Table 
+          stickyHeader 
+          className={classes.table} 
+          aria-label="simple table"
+        >
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell key={column.id}>{column.label}</TableCell>
+              ))}
+              {actions && <TableCell>Acciones</TableCell>}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((row) => (
+              <TableRow key={row.id}>
+                {columns.map((column) => (
+                  <TableCell key={column.id}>
+                    {column.format ? column.format(row[column.id]) : row[column.id]}
+                  </TableCell>
                 ))}
-              </TableCell>
+                {actions && (
+                  <TableCell>
+                    {actions.map((action) => (
+                      <Button
+                        color={action.color}
+                        variant="contained"
+                        className={classes.button}
+                        key={action.label}
+                        onClick={() => action.onClick(row)}
+                      >
+                        {action.label}
+                      </Button>
+                    ))}
+                  </TableCell>
+                )}
+              </TableRow>
+            ))}
+            {emptyRows > 0 && data.length < ROWS_PER_PAGE[0] && (
+                <TableRow style={{ height: ROW_HEIGHT * Math.max(0, ROWS_PER_PAGE[0] - data.length) }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
             )}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+          component="div"
+          rowsPerPageOptions={[...ROWS_PER_PAGE]}
+          count={totalCount}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handlePage}
+          onRowsPerPageChange={handleRowsPerPage}
+      />
+    </Paper>
   );
 };
 

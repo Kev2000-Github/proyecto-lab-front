@@ -16,7 +16,11 @@ export function EditItem() {
   const [data, setData] = useState()
   const history = useHistory()
   const { id } = useParams();
-  const handleGetItem = useQuery(["items-query", id], getItem, config.defaultReactQuery);
+  const handleGetItem = useQuery(["item-query", id], getItem, config.defaultReactQuery);
+
+  useEffect(() => {
+    handleGetItem.refetch()
+  },[])
 
   useEffect(() => {
     if(handleGetItem.isSuccess) setData(handleGetItem?.data?.data)
