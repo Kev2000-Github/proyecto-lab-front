@@ -22,8 +22,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 export function Sidebar({ type }) {
     const location = useLocation()
@@ -99,8 +97,7 @@ export function Sidebar({ type }) {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
-        {/* <List>  */}
+        <Divider />        
         <ul className='SidebarList'>   
         {(type === roles.ADMIN? SidebarData : SidebarDataAgente)
             .map((val, key) => {
@@ -124,49 +121,13 @@ export function Sidebar({ type }) {
             );
             })}
         
-        </ul>
-          {/*{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-          </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>*/}
-          {/*}))}  */}
+        </ul>          
           {
         type === roles.ADMIN?
         <PerfilUsuario/>
         :
         <PerfilAgente/>
-      }
-        {/*</List> */}
-      {/*<ul className='SidebarList'>   
-        {(type === roles.ADMIN? SidebarData : SidebarDataAgente)
-            .map((val, key) => {
-                return (
-                <Link to={val.link}>
-                <li 
-                    key={key} 
-                    className={`
-                        row 
-                        ${location.pathname === val.link ? "active": ""}
-                    `}
-                >   
-                    <div className='icon'>
-                    {val.icon}
-                    </div> 
-                    <div className='title'>
-                    {val.title}
-                    </div>
-                </li>
-                </Link>
-            );
-            })}
-        
-        </ul>*/}
-      
+      }            
       </Drawer>
       </Box>
     </div>
