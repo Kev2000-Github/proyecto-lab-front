@@ -1,7 +1,21 @@
 import axios from 'axios'
-import { notify } from './components/PDF/helper'
+
 
 export const transport = axios
+
+transport.interceptors.response.use((response) => response, async function (error) {
+  const originalRequest = error.config;
+  console.log('originalRequest=', originalRequest)
+  const role = getRol()
+  if (
+    (error.response.status === 401 && 
+    originalRequest.url.indexOf("/session") === -1) ||
+    !role
+    ) {
+    return window.location.replace('/')
+  }
+  return Promise.reject(error)
+})
 
 export const getSessionId = () => localStorage.getItem('sessionId')
 export const getRol = () => localStorage.getItem('rol')
@@ -24,53 +38,53 @@ export const deleteSessionId = () => {
 
 const Put = async (link, body) => {
     try {
-      const headers = { auth: getSessionId() }
+      const headers = { Authorization: `Bearer ${getSessionId()}` }
       const resp = await transport.put(link, body, { headers })
       if (resp.status === 200) {
         return resp.data
       }
     }
     catch (err) {
-      notify(err.response?.data?.message, 'error')
+      throw err
     }
   }
   
   const Post = async (link, body) => {
     try {
-      const headers = { auth: getSessionId() }
+      const headers = { Authorization: `Bearer ${getSessionId()}` }
       const resp = await transport.post(link, body, { headers })
       if (resp.status === 200) {
         return resp.data
       }
     }
     catch (err) {
-      notify(err.response?.data?.message, 'error')
+      throw err
     }
   }
   
   const Get = async (link) => {
     try {
-      const headers = { auth: getSessionId() }
+      const headers = { Authorization: `Bearer ${getSessionId()}` }
       const resp = await transport.get(link, { headers })
       if (resp.status === 200) {
         return resp.data
       }
     }
     catch (err) {
-      notify(err.response?.data?.message, 'error')
+      throw err
     }
   }
   
   const Delete = async (link) => {
     try {
-      const headers = { auth: getSessionId() }
+      const headers = { Authorization: `Bearer ${getSessionId()}` }
       const resp = await transport.delete(link, { headers })
       if (resp.status === 200) {
         return resp.data
       }
     }
     catch (err) {
-      notify(err.response?.data?.message, 'error')
+      throw err
     }
   }
   

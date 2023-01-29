@@ -15,7 +15,7 @@ import Divider from '@mui/material/Divider';
 import { SidebarData } from './MenuAdmin/SidebarData';
 import { SidebarDataAgente } from './MenuAgente/SidebarDataAgente'
 import { PerfilUsuario } from "./MenuAdmin/PerfilUsuario";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { PerfilAgente } from './MenuAgente/PerfilAgente';
 import { roles } from '../../utils/constants';
 import ListItem from '@mui/material/ListItem';
@@ -25,43 +25,44 @@ import ListItemText from '@mui/material/ListItemText';
 
 export function Sidebar({ type }) {
     const location = useLocation()
+    const history = useHistory()
     const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    const handleDrawerOpen = () => {
+      setOpen(true);
+    };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    const handleDrawerClose = () => {
+      setOpen(false);
+    };
 
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  }));
-  const drawerWidth = 240;
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
+    const DrawerHeader = styled('div')(({ theme }) => ({
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+      justifyContent: 'flex-end',
+    }));
+    const drawerWidth = 240;
+    const AppBar = styled(MuiAppBar, {
+      shouldForwardProp: (prop) => prop !== 'open',
+    })(({ theme, open }) => ({
       transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
       }),
-    }),
-  }));
-
+      ...(open && {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: `${drawerWidth}px`,
+        transition: theme.transitions.create(['margin', 'width'], {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      }),
+    }));
+    
     return <div className='Sidebar'>
          <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -102,9 +103,8 @@ export function Sidebar({ type }) {
         {(type === roles.ADMIN? SidebarData : SidebarDataAgente)
             .map((val, key) => {
                 return (
-                <Link to={val.link}>
+                <Link key={key} onClick={(e) => val.onClick(e, history)} to={val.link}>
                 <li 
-                    key={key} 
                     className={`
                         row 
                         ${location.pathname === val.link ? "active": ""}
