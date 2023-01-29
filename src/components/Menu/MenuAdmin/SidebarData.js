@@ -18,13 +18,13 @@ export const SidebarData = [
     {
         title: "Grupos",
         icon: <GroupsOutlinedIcon />,
-        link: "/grupos",
+        link: "/groups",
         onClick: () => {}
     },
     {
         title: "Sucursales",
         icon: <GroupsOutlinedIcon />,
-        link: "/sucursales",
+        link: "/subsidiaries",
         onClick: () => {}
     },
     {
@@ -36,7 +36,7 @@ export const SidebarData = [
     {
         title: "Usuarios",
         icon: <PersonIcon />,
-        link: "/usuarios",
+        link: "/users",
         onClick: () => {}
     },
     {    

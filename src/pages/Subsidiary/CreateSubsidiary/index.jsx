@@ -3,26 +3,24 @@ import { useHistory } from "react-router-dom";
 import { Sidebar } from "../../../components/Menu";
 import ItemForm from "../../../components/Forms/Item/ItemForm";
 import { useMutation } from "react-query";
-import { createItem } from "../../../services/item.service";
 import { swalLoading, swalSuccess } from "../../../utils/swal";
-import { userSchema } from "../../../schemas/item.schema";
 import { getRol } from "../../../utils/helper";
+import { createSubsidiary } from "../../../services/subsidiary.service";
+import { subsidiarySchema } from "../../../schemas/subsidiary.schema";
+import SubsidiaryForm from "../../../components/Forms/Subsidiary/SubsidiaryForm";
 
-export function CreateItem() {
+export function CreateSubsidiary() {
   const history = useHistory();
 
   const handleCreateItem = useMutation(async (data) => {
     swalLoading();
-    await createItem(data);
-    swalSuccess("Medicina creada con exito", null, () => history.push('/drugs'));
+    await createSubsidiary(data);
+    swalSuccess("Sucursal creada con exito", null, () => history.push('/subsidiaries'));
   });
 
   const onSubmit = (data) => {
     handleCreateItem.mutate({
-      code: data.code,
-      name: data.name,
-      description: data.description,
-      photo: data.photo,
+      name: data.name
     });
   };
 
@@ -31,8 +29,8 @@ export function CreateItem() {
       <Sidebar type={(getRol())} />
       <div className="main">
         <div className="card">
-          <h2> Crear Medicina</h2>
-          <ItemForm schema={userSchema} onSubmitItem={onSubmit} />
+          <h2> Crear Sucursal</h2>
+          <SubsidiaryForm schema={subsidiarySchema} onSubmitItem={onSubmit} />
         </div>
       </div>
     </div>

@@ -11,38 +11,38 @@ import { userSchema } from "../../../schemas/item.schema";
 import { getRol } from "../../../utils/helper";
 import { useState } from "react";
 import { config } from "../../../config";
+import { getGroup, updateGroup } from "../../../services/group.service";
+import { groupSchema } from "../../../schemas/group.schema";
+import GroupForm from "../../../components/Forms/Group/GroupForm";
 
-export function EditItem() {
+export function EditGroup() {
   const [data, setData] = useState()
   const history = useHistory()
   const { id } = useParams();
-  const handleGetItem = useQuery(["item-query", id], getItem, config.defaultReactQuery);
+  const handleGetGroup = useQuery(["group-query", id], getGroup, config.defaultReactQuery);
 
   useEffect(() => {
-    handleGetItem.refetch()
+    handleGetGroup.refetch()
   },[])
 
   useEffect(() => {
-    if(handleGetItem.isSuccess) setData(handleGetItem?.data?.data)
-  }, [handleGetItem.data])
+    if(handleGetGroup.isSuccess) setData(handleGetGroup?.data?.data)
+  }, [handleGetGroup.data])
 
   useEffect(() => {
-    if (handleGetItem.isLoading) swalLoading()
+    if (handleGetGroup.isLoading) swalLoading()
     else swalClose();
-  }, [handleGetItem.isLoading]);
+  }, [handleGetGroup.isLoading]);
 
-  const handleUpdatedItem = useMutation(async (data) => {
+  const handleUpdateGroup = useMutation(async (data) => {
     swalLoading();
-    await updatedItem(id, data);
-    swalSuccess("Medicina actualizada", null, () => history.push('/drugs'));
+    await updateGroup(id, data);
+    swalSuccess("Grupo actualizado", null, () => history.push('/groups'));
   });
 
   const onSubmit = (data) => {
-    handleUpdatedItem.mutate({
-      code: data.code,
-      name: data.name,
-      description: data.description,
-      photo: data.photo,
+    handleUpdateGroup.mutate({
+      name: data.name
     });
   };
 
@@ -51,10 +51,10 @@ export function EditItem() {
       <Sidebar type={getRol()} />
       <div className="main">
         <div className="card">
-          <h2> Editar Medicina</h2>
+          <h2> Editar Grupo</h2>
           {data && (
-            <ItemForm
-              schema={userSchema}
+            <GroupForm
+              schema={groupSchema}
               disabledFields={{
                 code: true,
               }}

@@ -54,12 +54,11 @@ export function ItemPage() {
     getItems, 
     config.defaultReactQuery);
   const handleDeleteItem = useMutation(async (id) => {
-    const response = await deleteItem(id);
-    if (response) {
-      swalSuccess();
-      itemsQuery.refetch();
-    }
-  });
+    swalLoading()
+    await deleteItem(id)
+    swalSuccess()
+    itemsQuery.refetch()
+  }, config.defaultReactQuery);
 
   useEffect(() => {
     getAllGroups()
@@ -75,10 +74,6 @@ export function ItemPage() {
     if(itemsQuery.isLoading) swalLoading()
     else swalClose()
   }, [itemsQuery.isLoading])
-
-  useEffect(() => {
-    if(handleDeleteItem.isLoading) swalLoading()
-  },[handleDeleteItem.isLoading])
 
   useEffect(() => {
     itemsQuery.refetch()
