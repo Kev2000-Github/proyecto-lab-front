@@ -27,14 +27,11 @@ export function CreateItem() {
   };
 
   return (
-    <div className="itemBody">
-      <Sidebar type={(getRol())} />
-      <div className="main">
+    <div className="main">
         <div className="card">
           <h2> Crear Medicina</h2>
           <ItemForm schema={userSchema} onSubmitItem={onSubmit} />
         </div>
       </div>
-    </div>
   );
 }

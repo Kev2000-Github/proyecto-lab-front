@@ -47,9 +47,7 @@ export function EditItem() {
   };
 
   return (
-    <div className="itemBody">
-      <Sidebar type={getRol()} />
-      <div className="main">
+    <div className="main">
         <div className="card">
           <h2> Editar Medicina</h2>
           {data && (
@@ -64,6 +62,5 @@ export function EditItem() {
           )}
         </div>
       </div>
-    </div>
   );
 }

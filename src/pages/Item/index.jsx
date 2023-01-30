@@ -112,9 +112,7 @@ export function ItemPage() {
     },
   ];
   return (
-    <div className="itemBody">
-      <Sidebar type={getRol()} />
-      <div className="main">
+    <div className="main">
         <div className="card">
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="select-grupo-label">Grupo</InputLabel>
@@ -158,6 +156,5 @@ export function ItemPage() {
           </Button>
         </div>
       </div>
-    </div>
   );
 }

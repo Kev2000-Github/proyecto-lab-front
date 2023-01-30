@@ -25,14 +25,11 @@ export function CreateSubsidiary() {
   };
 
   return (
-    <div className="itemBody">
-      <Sidebar type={(getRol())} />
-      <div className="main">
+    <div className="main">
         <div className="card">
           <h2> Crear Sucursal</h2>
           <SubsidiaryForm schema={subsidiarySchema} onSubmitItem={onSubmit} />
         </div>
       </div>
-    </div>
   );
 }

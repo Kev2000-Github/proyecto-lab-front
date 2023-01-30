@@ -25,13 +25,10 @@ export function CreateGroup() {
   };
 
   return (
-    <div className="itemBody">
-      <Sidebar type={(getRol())} />
-      <div className="main">
-        <div className="card">
-          <h2> Crear Grupo</h2>
-          <GroupForm schema={groupSchema} onSubmitItem={onSubmit} />
-        </div>
+    <div className="main">
+      <div className="card">
+        <h2> Crear Grupo</h2>
+        <GroupForm schema={groupSchema} onSubmitItem={onSubmit} />
       </div>
     </div>
   );

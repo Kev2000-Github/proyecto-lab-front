@@ -48,9 +48,7 @@ export function EditUser() {
   };
 
   return (
-    <div className="itemBody">
-      <Sidebar type={getRol()} />
-      <div className="main">
+    <div className="main">
         <div className="card">
           <h2> Editar Usuario</h2>
           {data && (
@@ -65,6 +63,5 @@ export function EditUser() {
           )}
         </div>
       </div>
-    </div>
   );
 }

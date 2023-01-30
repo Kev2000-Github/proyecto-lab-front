@@ -47,22 +47,19 @@ export function EditGroup() {
   };
 
   return (
-    <div className="itemBody">
-      <Sidebar type={getRol()} />
-      <div className="main">
-        <div className="card">
-          <h2> Editar Grupo</h2>
-          {data && (
-            <GroupForm
-              schema={groupSchema}
-              disabledFields={{
-                code: true,
-              }}
-              defaultValues={data}
-              onSubmitItem={onSubmit}
-            />
-          )}
-        </div>
+    <div className="main">
+      <div className="card">
+        <h2> Editar Grupo</h2>
+        {data && (
+          <GroupForm
+            schema={groupSchema}
+            disabledFields={{
+              code: true,
+            }}
+            defaultValues={data}
+            onSubmitItem={onSubmit}
+          />
+        )}
       </div>
     </div>
   );

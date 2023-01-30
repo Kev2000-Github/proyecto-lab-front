@@ -72,9 +72,7 @@ export function SubsidiaryPage() {
   }
   
   return (
-    <div className='itemBody'>
-      <Sidebar type={getRol()}/>
-      <div className='main'>
+    <div className='main'>
         <div className='card'>
           <TableComponent 
             data={subsidiaries?.data ?? []} 
@@ -94,6 +92,5 @@ export function SubsidiaryPage() {
           </Button>
         </div>
       </div>
-    </div>
   );
 }

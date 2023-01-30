@@ -27,14 +27,11 @@ export function CreateUser() {
   };
 
   return (
-    <div className="itemBody">
-      <Sidebar type={(getRol())} />
-      <div className="main">
+    <div className="main">
         <div className="card">
           <h2> Crear Usuario</h2>
           <UserForm schema={userSchema} onSubmitItem={onSubmit} />
         </div>
       </div>
-    </div>
   );
 }

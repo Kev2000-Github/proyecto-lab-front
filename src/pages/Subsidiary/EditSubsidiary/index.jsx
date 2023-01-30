@@ -45,9 +45,7 @@ export function EditSubsidiary() {
   };
 
   return (
-    <div className="itemBody">
-      <Sidebar type={getRol()} />
-      <div className="main">
+    <div className="main">
         <div className="card">
           <h2> Editar Sucursal</h2>
           {data && (
@@ -62,6 +60,5 @@ export function EditSubsidiary() {
           )}
         </div>
       </div>
-    </div>
   );
 }

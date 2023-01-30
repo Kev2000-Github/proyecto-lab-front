@@ -15,6 +15,17 @@ import { CreateGroup } from "../pages/Group/CreateGroup";
 import { EditGroup } from "../pages/Group/EditGroup";
 import { CreateUser } from "../pages/User/CreateUser";
 import { EditUser } from "../pages/User/EditUser";
+import { Sidebar } from "../components/Menu";
+import { getRol } from "../utils/helper";
+
+const sideBarHOC = (Component) => (props) => {
+  return (
+    <div className="mainBody">
+      <Sidebar type={getRol()}/>
+      <Component {...props}/>
+    </div>
+  )
+}
 
 function App() {
   const queryClient = new QueryClient();
@@ -23,18 +34,18 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Route exact path="/" component={Login} />
-        <Route exact path="/drugs" component={ItemPage} />
-        <Route exact path="/drugs/create" component={CreateItem} />
-        <Route exact path="/drugs/edit/:id" component={EditItem} />
-        <Route exact path="/users" component={UserPage} />
-        <Route exact path="/users/create" component={CreateUser} />
-        <Route exact path="/users/edit/:id" component={EditUser} />
-        <Route exact path="/groups" component={GroupPage} />
-        <Route exact path="/groups/create" component={CreateGroup} />
-        <Route exact path="/groups/edit/:id" component={EditGroup} />
-        <Route exact path="/subsidiaries" component={SubsidiaryPage} />
-        <Route exact path="/subsidiaries/edit/:id" component={EditSubsidiary} />
-        <Route exact path="/subsidiaries/create" component={CreateSubsidiary} />
+        <Route exact path="/drugs" component={sideBarHOC(ItemPage)} />
+        <Route exact path="/drugs/create" component={sideBarHOC(CreateItem)} />
+        <Route exact path="/drugs/edit/:id" component={sideBarHOC(EditItem)} />
+        <Route exact path="/users" component={sideBarHOC(UserPage)} />
+        <Route exact path="/users/create" component={sideBarHOC(CreateUser)} />
+        <Route exact path="/users/edit/:id" component={sideBarHOC(EditUser)} />
+        <Route exact path="/groups" component={sideBarHOC(GroupPage)} />
+        <Route exact path="/groups/create" component={sideBarHOC(CreateGroup)} />
+        <Route exact path="/groups/edit/:id" component={sideBarHOC(EditGroup)} />
+        <Route exact path="/subsidiaries" component={sideBarHOC(SubsidiaryPage)} />
+        <Route exact path="/subsidiaries/edit/:id" component={sideBarHOC(EditSubsidiary)} />
+        <Route exact path="/subsidiaries/create" component={sideBarHOC(CreateSubsidiary)} />
       </BrowserRouter>
     </QueryClientProvider>
   );

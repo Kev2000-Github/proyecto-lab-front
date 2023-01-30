@@ -81,9 +81,7 @@ export function UserPage() {
   }
   
   return (
-    <div className='itemBody'>
-      <Sidebar type={getRol()}/>
-      <div className='main'>
+    <div className='main'>
         <div className='card'>
           <TableComponent 
             data={users?.data ?? []} 
@@ -103,6 +101,5 @@ export function UserPage() {
           </Button>
         </div>
       </div>
-    </div>
   );
 }

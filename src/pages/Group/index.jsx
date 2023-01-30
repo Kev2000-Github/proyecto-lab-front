@@ -60,22 +60,19 @@ export function GroupPage() {
   }
 
   return (
-    <div className='itemBody'>
-      <Sidebar type={getRol()}/>
-      <div className='main'>
-        <div className='card'>
-          <TableComponent 
-            data={data} 
-            columns={columns} 
-            actions={actions} />
-          <Button
-            sx={{marginTop: 2}}
-            className="card-create-btn"
-            variant={"contained"} 
-            onClick={handleCreateGroup}> 
-              Crear
-          </Button>
-        </div>
+    <div className='main'>
+      <div className='card'>
+        <TableComponent 
+          data={data} 
+          columns={columns} 
+          actions={actions} />
+        <Button
+          sx={{marginTop: 2}}
+          className="card-create-btn"
+          variant={"contained"} 
+          onClick={handleCreateGroup}> 
+            Crear
+        </Button>
       </div>
     </div>
   );
