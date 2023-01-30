@@ -1,9 +1,7 @@
-import { Sidebar } from '../../components/Menu';
 import TableComponent from '../../components/Table';
 import { useMutation, useQuery } from 'react-query';
 import { useEffect } from 'react';
 import { swalClose, swalLoading, swalQuestion, swalSuccess } from '../../utils/swal';
-import { getRol } from '../../utils/helper';
 import { getSubsidiaries, deleteSubsidiary } from '../../services/subsidiary.service';
 import { config } from '../../config';
 import { useState } from 'react';

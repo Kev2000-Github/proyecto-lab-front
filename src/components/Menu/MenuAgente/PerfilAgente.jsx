@@ -1,6 +1,7 @@
 import React from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
+import { getUser } from '../../../utils/helper';
 
 export function PerfilAgente() {
   return (
@@ -9,13 +10,17 @@ export function PerfilAgente() {
         <div className='icono'>
           <AccountCircleIcon />
         </div>     
-        <h1 className='nombre'>Agente</h1>
+        <h1 className='nombre'>
+          {getUser()?.username ?? "Agente"}
+        </h1>
       </div>
       <div className='userInfo'>
         <div className='icono'>
           <HomeWorkIcon />
         </div>     
-        <h1 className='nombre'>Sucursal</h1>
+        <h1 className='nombre'>
+          {getUser()?.subsidiary ?? "Sucursal"}
+        </h1>
       </div>
     </div>
   );

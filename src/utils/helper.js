@@ -19,6 +19,15 @@ transport.interceptors.response.use((response) => response, async function (erro
 
 export const getSessionId = () => localStorage.getItem('sessionId')
 export const getRol = () => localStorage.getItem('rol')
+export const getUser = () => {
+  const userString = localStorage.getItem('user')
+  if(isJSON(userString)){
+    const user = JSON.parse(userString)
+    return user
+  }
+  deleteUser()
+  return null
+}
 
 export const setSessionId = (sessionId) => {
   localStorage.setItem('sessionId', sessionId)
@@ -28,12 +37,35 @@ export const setRol = (rol) => {
   localStorage.setItem('rol', rol)
 }
 
+export const setUser = (user) => {
+  const relevantData = {
+    username: user?.username,
+    subsidiary: user?.subsidiary
+  }
+  const userParsed = JSON.stringify(relevantData)
+  localStorage.setItem('user', userParsed)
+}
+
+export const isJSON = (jsonString) => {
+  try{
+    JSON.parse(jsonString)
+    return true
+  }
+  catch{
+    return false
+  }
+}
+
 export const deleteRol = () => {
   localStorage.removeItem('rol')
 }
 
 export const deleteSessionId = () => {
   localStorage.removeItem('sessionId')
+}
+
+export const deleteUser = () => {
+  localStorage.removeItem('user')
 }
 
 const Put = async (link, body) => {

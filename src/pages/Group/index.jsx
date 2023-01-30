@@ -1,9 +1,7 @@
-import { Sidebar } from '../../components/Menu';
 import TableComponent from '../../components/Table';
 import { useMutation, useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
 import { swalClose, swalLoading, swalQuestion, swalSuccess } from '../../utils/swal';
-import { getRol } from '../../utils/helper';
 import { deleteGroup, getGroups } from '../../services/group.service';
 import { config } from '../../config';
 import { Button } from '@mui/material';

@@ -1,10 +1,8 @@
-import { Sidebar } from '../../components/Menu';
 import TableComponent from '../../components/Table';
 import { useMutation, useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
 import { swalClose, swalLoading, swalQuestion, swalSuccess } from '../../utils/swal';
 import './index.scss'
-import { getRol } from '../../utils/helper';
 import { deleteUser, getUsers } from '../../services/user.service';
 import { config } from '../../config';
 import { useHistory } from 'react-router-dom';

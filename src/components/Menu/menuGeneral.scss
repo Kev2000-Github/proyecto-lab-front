@@ -1,24 +1,31 @@
 $hoverColor: #c08c8c;
+$backgroundColor: #dea5a5;
 
 .Sidebar {
     height: 100%;
-    width: 15em;
     display: flex;
     flex-direction: column;
+    .drawer{
+        background: $backgroundColor;
+    }
+    .MuiDrawer-paper{
+        width: 240px;
+        background: $backgroundColor;
+        overflow: hidden;
+    }
     .SidebarList {
-        height: auto;
-        width: 100%;
         padding: 0;
         margin: 0;
-        background-color: #dea5a5;
+        display: flex;
+        flex-direction: column;
+        
         a{
-            padding: 20px;
             text-decoration: none;
             color: black;
         }
         .row {
             cursor: pointer;
-            padding: 19px 0;
+            padding: 20px 0;
             list-style-type: none;
             display: flex;
             align-items: center;
@@ -45,8 +52,6 @@ $hoverColor: #c08c8c;
         flex-direction: column;
         justify-content: flex-end;
         padding-bottom: 10px;
-        padding-left: 10px;
-        background-color: #dea5a5;
         .userInfo{
             display: flex;
             .icono {
@@ -61,18 +66,16 @@ $hoverColor: #c08c8c;
             .nombre{
                 font-weight: bold;
                 font-size: 18px;
-                margin: 6px 0;
-                padding-left: 5px;
+                margin: 0;
             }
         }
     }
 }
 
-.DrawerHeader {
+.DrawerHeader, .Toolbar {
     background-color: #dea5a5;
 }
 
-.Toolbar{
-    background-color: #dea5a5;
-    
+.nameDetail{
+    display: hidden;
 }

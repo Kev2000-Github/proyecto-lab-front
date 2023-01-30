@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useHistory } from "react-router-dom";
-import { Sidebar } from "../../../components/Menu";
 import { useMutation } from "react-query";
 import { swalLoading, swalSuccess } from "../../../utils/swal";
-import { getRol } from "../../../utils/helper";
 import { config } from "../../../config";
 import { createUser } from "../../../services/user.service";
 import UserForm from "../../../components/Forms/User/UserForm";

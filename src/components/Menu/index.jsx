@@ -4,13 +4,11 @@ import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import CssBaseline from '@mui/material/CssBaseline';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MuiAppBar from '@mui/material/AppBar';
 import "./menuGeneral.scss";
-import Divider from '@mui/material/Divider';
 import { SidebarData } from './MenuAdmin/SidebarData';
 import { SidebarDataAgente } from './MenuAgente/SidebarDataAgente'
 import { PerfilUsuario } from "./MenuAdmin/PerfilUsuario";
@@ -34,19 +32,16 @@ export function Sidebar({ type }) {
     
     return (
       <div className='Sidebar'>
-      <Box sx={{ display: 'flex' }}>
-        <AppBar className='AppBar' position="fixed" open={open}>
+      <Box>
+        <AppBar
+          sx={{width: 1}}
+          className='AppBar' 
+          position="fixed"
+          open={open}>
           <Navbar onOpenDrawer={handleDrawerOpen} />
         </AppBar>
         <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
-          }}
+          className='drawer'
           variant="persistent"
           anchor="left"
           open={open}
@@ -56,7 +51,6 @@ export function Sidebar({ type }) {
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </DrawerHeader>
-          <Divider />        
           <ul className='SidebarList'>   
           {(type === roles.ADMIN? SidebarData : SidebarDataAgente)
               .map((val, key) => {
@@ -71,7 +65,7 @@ export function Sidebar({ type }) {
                       <div className='icon'>
                       {val.icon}
                       </div> 
-                      <div className='title'>
+                      <div className='title nameDetail'>
                       {val.title}
                       </div>
                   </li>
@@ -81,11 +75,11 @@ export function Sidebar({ type }) {
           
           </ul>          
             {
-          type === roles.ADMIN?
-          <PerfilUsuario/>
-          :
-          <PerfilAgente/>
-        }            
+              type === roles.ADMIN?
+              <PerfilUsuario/>
+              :
+              <PerfilAgente/>
+            }            
         </Drawer>
       </Box>
     </div>

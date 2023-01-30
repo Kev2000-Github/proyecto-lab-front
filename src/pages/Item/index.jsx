@@ -1,4 +1,3 @@
-import { Sidebar } from "../../components/Menu";
 import TableComponent from "../../components/Table";
 import { useMutation, useQuery } from "react-query";
 import { deleteItem, getItems } from "../../services/item.service";
@@ -12,7 +11,6 @@ import {
 } from "../../utils/swal";
 import medicineIcon from '../../resources/medicine-icon.png'
 import "./index.scss";
-import { getRol } from "../../utils/helper";
 import { useHistory } from "react-router-dom";
 import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useState } from "react";

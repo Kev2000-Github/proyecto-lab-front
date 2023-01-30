@@ -1,11 +1,11 @@
 import React from "react"
-import { swalClose, swalError, swalLoading } from '../../utils/swal';
+import { swalClose, swalLoading } from '../../utils/swal';
 import { useMutation } from "react-query";
 import { signin } from "../../services/session.service";
 import './style.scss';
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { setRol, setSessionId } from "../../utils/helper";
+import { setRol, setSessionId, setUser } from "../../utils/helper";
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import { config } from "../../config";
@@ -19,6 +19,11 @@ export function Login() {
             swalClose();
             setSessionId(resp.session?.id)
             setRol(resp.user?.role)
+            const user = {
+                username: resp.user?.username,
+                subsidiary: resp.user?.Subsidiary?.name
+            }
+            setUser(user)
             history.push('/drugs')
         }
     })

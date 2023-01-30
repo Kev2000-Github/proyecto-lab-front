@@ -1,12 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useHistory, useParams } from "react-router-dom";
-import { Sidebar } from "../../../components/Menu";
-import ItemForm from "../../../components/Forms/Item/ItemForm";
 import { useMutation, useQuery } from "react-query";
-import { updatedItem } from "../../../services/item.service";
 import { useEffect } from "react";
 import { swalClose, swalLoading, swalSuccess } from "../../../utils/swal";
-import { getRol } from "../../../utils/helper";
 import { useState } from "react";
 import { config } from "../../../config";
 import { getSubsidiary, updateSubsidiary } from "../../../services/subsidiary.service";

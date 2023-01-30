@@ -1,12 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useHistory } from "react-router-dom";
-import { Sidebar } from "../../../components/Menu";
 import ItemForm from "../../../components/Forms/Item/ItemForm";
 import { useMutation } from "react-query";
 import { createItem } from "../../../services/item.service";
 import { swalLoading, swalSuccess } from "../../../utils/swal";
 import { userSchema } from "../../../schemas/item.schema";
-import { getRol } from "../../../utils/helper";
 
 export function CreateItem() {
   const history = useHistory();
