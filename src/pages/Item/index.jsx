@@ -1,10 +1,11 @@
 import TableComponent from "../../components/Table";
 import { useMutation, useQuery } from "react-query";
-import { deleteItem, getItems } from "../../services/item.service";
+import { deleteItem, getItems, updateQuantity } from "../../services/item.service";
 import { useEffect } from "react";
 import { config } from '../../config'
 import {
   swalClose,
+  swalInput,
   swalLoading,
   swalQuestion,
   swalSuccess,
@@ -15,12 +16,14 @@ import { useHistory } from "react-router-dom";
 import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useState } from "react";
 import { getAllGroups } from "../../services/group.service";
+import { getRol, getUser } from "../../utils/helper";
+import { roles } from "../../utils/constants";
 
 const onBrokenImage = (e) => {
   e.target.src = medicineIcon
 }
 
-const columns = [
+const commonColumns = [
   { id: "code", label: "Código" },
   { id: "name", label: "Nombre" },
   { id: "description", label: "Descripción" },
@@ -35,7 +38,7 @@ const columns = [
       </div>
     )
   }},
-];
+]
 
 export function ItemPage() {
   const [items, setItems] = useState({})
@@ -43,20 +46,35 @@ export function ItemPage() {
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [groups, setGroups] = useState([])
   const [selectedGroupId, setSelectedGroupId] = useState("")
+  const [byNewItem, setByNewItem] = useState(false)
   const history = useHistory();
   const itemsQuery = useQuery([
     "items-query", 
     page, 
     rowsPerPage, 
-    selectedGroupId], 
+    selectedGroupId,
+    byNewItem], 
     getItems, 
-    config.defaultReactQuery);
+    config.defaultReactQuery
+  )
   const handleDeleteItem = useMutation(async (id) => {
     swalLoading()
     await deleteItem(id)
     swalSuccess()
     itemsQuery.refetch()
-  }, config.defaultReactQuery);
+  }, config.defaultReactQuery
+  )
+  const handleUpdateQuantity = useMutation(async ({id, quantity}) => {
+    swalLoading()
+    await updateQuantity(id, {quantity: Number(quantity)})
+    swalClose()
+    itemsQuery.refetch()
+  }, config.defaultReactQuery
+  )
+  const columns = getUser()?.subsidiary ? [
+    ...commonColumns,
+    { id: "quantity", label: "Cantidad" }
+  ] : commonColumns
 
   useEffect(() => {
     getAllGroups()
@@ -75,7 +93,7 @@ export function ItemPage() {
 
   useEffect(() => {
     itemsQuery.refetch()
-  },[page, rowsPerPage, selectedGroupId])
+  },[page, rowsPerPage, selectedGroupId, byNewItem])
 
   useEffect(() => {
     if(itemsQuery.isSuccess) setItems(itemsQuery?.data)
@@ -94,7 +112,22 @@ export function ItemPage() {
     history.push("/drugs/create");
   };
 
-  const actions = [
+  const actions = getUser()?.subsidiary ?
+  [
+    {
+      label: "Cantidad",
+      color: "primary",
+      onClick: async (row) => {
+        const {isConfirmed, value} = await swalInput()
+        if(isConfirmed){
+          const quantity = value?.quantity
+          handleUpdateQuantity.mutate({id: row.id, quantity})
+        }
+      },
+    }
+  ]
+  :
+  [
     {
       label: "Editar",
       color: "primary",
@@ -108,7 +141,8 @@ export function ItemPage() {
         if(isConfirmed) handleDeleteItem.mutate(row.id)
       },
     },
-  ];
+  ]
+
   return (
     <div className="main">
         <div className="card">
@@ -135,6 +169,23 @@ export function ItemPage() {
               }
             </Select>
           </FormControl>
+          {
+            getUser()?.subsidiary ?
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="select-bysubsidiary-label">Ver</InputLabel>
+            <Select
+              labelId="select-bysubsidiary-label"
+              id="select-bysubsidiary"
+              value={byNewItem}
+              onChange={(e) => setByNewItem(e.target.value)}
+              label="Group"
+            >
+              <MenuItem value={false}> por sucursal </MenuItem>
+              <MenuItem value={true}> nuevo </MenuItem>
+            </Select>
+          </FormControl>
+          :""
+          }
           <TableComponent 
             data={items?.data ?? []} 
             columns={columns} 
@@ -145,13 +196,17 @@ export function ItemPage() {
             handlePage={handlePage}
             handleRowsPerPage={handleRowsPerPage} 
           />
-          <Button
-            sx={{marginTop: 2}}
-            className="card-create-btn"
-            variant={"contained"} 
-            onClick={handleCreateItem}> 
-              Crear
-          </Button>
+          {
+            getRol() === roles.ADMIN ?
+            <Button
+              sx={{marginTop: 2}}
+              className="card-create-btn"
+              variant={"contained"} 
+              onClick={handleCreateItem}> 
+                Crear
+            </Button>
+            :""
+          }
         </div>
       </div>
   );

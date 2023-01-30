@@ -4,7 +4,8 @@ export const getItems = async ({queryKey}) => {
     const page = queryKey[1]
     const limit = queryKey[2]
     const group = queryKey[3]
-    const params = `?page=${page}&limit=${limit}${group ? `&groups=${group}` : ''}` 
+    const byNewItem = queryKey[4]
+    const params = `?page=${page}&limit=${limit}${group ? `&groups=${group}` : ''}&newitem=${byNewItem}` 
     const link = `${process.env.REACT_APP_URL}/item${params}`
     const items = await sendRequest.Get(link)
     return items
@@ -28,5 +29,10 @@ export const createItem = async (data) => {
 
 export const deleteItem = async (id) => {
     const item = await sendRequest.Delete(`${process.env.REACT_APP_URL}/item/${id}`)
+    return item
+}
+
+export const updateQuantity = async (id, data) => {
+    const item = await sendRequest.Post(`${process.env.REACT_APP_URL}/item/subsidiary/${id}`, data)
     return item
 }

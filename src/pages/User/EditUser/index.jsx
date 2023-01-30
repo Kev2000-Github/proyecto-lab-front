@@ -7,7 +7,9 @@ import { useState } from "react";
 import { config } from "../../../config";
 import { getUser, updateUser } from "../../../services/user.service";
 import UserForm from "../../../components/Forms/User/UserForm";
-import { userSchema } from "../../../schemas/user.schema";
+import { editUserSchema, userSchema } from "../../../schemas/user.schema";
+import { getRol } from "../../../utils/helper";
+import { roles } from "../../../utils/constants";
 
 export function EditUser() {
   const [data, setData] = useState()
@@ -19,7 +21,6 @@ export function EditUser() {
   },[])
   useEffect(() => {
     if(handleGetUser.isSuccess){
-      console.log(handleGetUser?.data?.data)
       const user = handleGetUser?.data?.data
       if(user?.Subsidiary?.id) user.subsidiaryId = user.Subsidiary.id
       setData(user)
@@ -38,11 +39,14 @@ export function EditUser() {
   }, config.defaultReactQuery);
 
   const onSubmit = (data) => {
-    handleUpdateUser.mutate({
+    const subsidiaryId = data.subsidiaryId === "none" ? "" : data.subsidiaryId
+    const password = data.password ?? null
+    const dataPassed = {
       username: data.username,
-      password: data.password,
-      subsidiaryId: data.subsidiaryId
-    });
+      subsidiaryId
+    }
+    if(password) dataPassed.password = password
+    handleUpdateUser.mutate(dataPassed);
   };
 
   return (
@@ -51,7 +55,8 @@ export function EditUser() {
           <h2> Editar Usuario</h2>
           {data && (
             <UserForm
-              schema={userSchema}
+              nullableSelect={getRol() === roles.ADMIN}
+              schema={editUserSchema}
               disabledFields={{
                 code: true,
               }}

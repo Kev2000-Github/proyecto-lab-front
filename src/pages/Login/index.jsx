@@ -20,6 +20,7 @@ export function Login() {
             setSessionId(resp.session?.id)
             setRol(resp.user?.role)
             const user = {
+                id: resp.user?.id,
                 username: resp.user?.username,
                 subsidiary: resp.user?.Subsidiary?.name
             }

@@ -5,12 +5,10 @@ export const transport = axios
 
 transport.interceptors.response.use((response) => response, async function (error) {
   const originalRequest = error.config;
-  console.log('originalRequest=', originalRequest)
   const role = getRol()
   if (
-    (error.response.status === 401 && 
-    originalRequest.url.indexOf("/session") === -1) ||
-    !role
+    (error.response.status === 401 || !role) && 
+    originalRequest.url.indexOf("/session") === -1
     ) {
     return window.location.replace('/')
   }
@@ -39,6 +37,7 @@ export const setRol = (rol) => {
 
 export const setUser = (user) => {
   const relevantData = {
+    id: user?.id,
     username: user?.username,
     subsidiary: user?.subsidiary
   }

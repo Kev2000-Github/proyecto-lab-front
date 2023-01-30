@@ -15,6 +15,7 @@ import { PerfilUsuario } from "./MenuAdmin/PerfilUsuario";
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { PerfilAgente } from './MenuAgente/PerfilAgente';
 import { roles } from '../../utils/constants';
+import { getUser } from '../../utils/helper';
 
 export function Sidebar({ type }) {
     const location = useLocation()
@@ -75,10 +76,10 @@ export function Sidebar({ type }) {
           
           </ul>          
             {
-              type === roles.ADMIN?
-              <PerfilUsuario/>
-              :
+              getUser()?.subsidiary?
               <PerfilAgente/>
+              :
+              <PerfilUsuario/>
             }            
         </Drawer>
       </Box>

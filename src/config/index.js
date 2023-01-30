@@ -8,6 +8,7 @@ export const config = {
     defaultReactQuery: {
         retry: false,
         enabled: false,
-        onError: defaultOnErrorQuery
+        onError: defaultOnErrorQuery,
+        cacheTime: 0
     }
 }

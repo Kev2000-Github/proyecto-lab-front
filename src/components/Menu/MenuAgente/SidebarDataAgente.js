@@ -1,6 +1,6 @@
 import React from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { deleteRol, deleteSessionId } from '../../../utils/helper';
+import { deleteRol, deleteSessionId, deleteUser } from '../../../utils/helper';
 import { swalClose, swalLoading } from '../../../utils/swal';
 import { logout } from '../../../services/session.service';
 
@@ -17,6 +17,7 @@ export const SidebarDataAgente = [
             if(resp){
                 deleteSessionId()
                 deleteRol()
+                deleteUser()
                 swalClose()
                 history.push('/')
             }        }

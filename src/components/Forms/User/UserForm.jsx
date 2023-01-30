@@ -11,6 +11,7 @@ const UserForm = ({
   defaultValues,
   schema,
   disabledFields,
+  nullableSelect = false
 }) => {
   const [subsidiaries, setSubsidiaries] = useState([])
   const {
@@ -78,6 +79,12 @@ const UserForm = ({
               variant="standard"
               sx={{minWidth: 100}}
             >
+              {
+                nullableSelect ? 
+                <MenuItem value={"none"}><em>Ninguno</em></MenuItem>
+                :
+                ""
+              }
               {
                 subsidiaries.map(subsidiary => (
                   <MenuItem

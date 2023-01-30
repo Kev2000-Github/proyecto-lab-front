@@ -48,3 +48,19 @@ export const swalSuccess = (title = 'Éxito', text = null, onAccept = () => {}) 
     didClose: onAccept
   })
 }
+
+export const swalInput = () => {
+  return Swal.fire({
+    title: 'Cantidad',
+    html: `<input type="number" id="quantity" class="swal2-input" placeholder="Cantidad">`,
+    confirmButtonText: 'Confirmar',
+    focusConfirm: false,
+    preConfirm: () => {
+      const quantity = Swal.getPopup().querySelector('#quantity').value
+      if (!quantity) {
+        Swal.showValidationMessage(`Por favor ingrese una cantidad`)
+      }
+      return { quantity }
+    }
+  })
+}

@@ -4,7 +4,7 @@ import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { deleteRol, deleteSessionId } from '../../../utils/helper';
+import { deleteRol, deleteSessionId, deleteUser } from '../../../utils/helper';
 import { logout } from '../../../services/session.service';
 import { swalClose, swalLoading } from '../../../utils/swal';
 
@@ -50,6 +50,7 @@ export const SidebarData = [
             if(resp){
                 deleteSessionId()
                 deleteRol()
+                deleteUser()
                 swalClose()
                 history.push('/')
             }

@@ -20,7 +20,10 @@ export function EditSubsidiary() {
   },[])
 
   useEffect(() => {
-    if(handleGetSubsidiary.isSuccess) setData(handleGetSubsidiary?.data?.data)
+    if(handleGetSubsidiary.isSuccess) {
+      console.log(data, handleGetSubsidiary?.data?.data)
+      setData(handleGetSubsidiary?.data?.data)
+    }
   }, [handleGetSubsidiary.data])
 
   useEffect(() => {
@@ -31,7 +34,10 @@ export function EditSubsidiary() {
   const handleUpdatedSubsidiary = useMutation(async (data) => {
     swalLoading();
     await updateSubsidiary(id, data);
-    swalSuccess("Sucursal actualizada", null, () => history.push('/subsidiaries'));
+    swalSuccess("Sucursal actualizada", null, () => {
+      setData(null)
+      history.push('/subsidiaries')
+    });
   }, config.defaultReactQuery);
 
   const onSubmit = (data) => {

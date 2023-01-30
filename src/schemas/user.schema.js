@@ -9,3 +9,11 @@ export const userSchema = yup
     subsidiaryId: yup.string().required(validationUser.SUBSIDIARY_REQUIRED_YUP)
   })
   .required()
+
+  export const editUserSchema = yup
+  .object({
+    username: yup.string().required(validationUser.USERNAME_REQUIRED_YUP),
+    password: yup.string(),
+    subsidiaryId: yup.string().required(validationUser.SUBSIDIARY_REQUIRED_YUP)
+  })
+  .required()
