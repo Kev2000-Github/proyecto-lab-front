@@ -156,7 +156,7 @@ export function ItemPage() {
               label="Group"
             >
               <MenuItem value="">
-                <em>None</em>
+                <em>Ninguno</em>
               </MenuItem>
               {
                 groups.map(group => (

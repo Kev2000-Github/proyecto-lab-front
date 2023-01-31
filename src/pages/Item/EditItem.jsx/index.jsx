@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "react-query";
 import { getItem, updatedItem } from "../../../services/item.service";
 import { useEffect } from "react";
 import { swalClose, swalLoading, swalSuccess } from "../../../utils/swal";
-import { userSchema } from "../../../schemas/item.schema";
+import { editItemSchema } from "../../../schemas/item.schema";
 import { useState } from "react";
 import { config } from "../../../config";
 
@@ -20,7 +20,9 @@ export function EditItem() {
   },[])
 
   useEffect(() => {
-    if(handleGetItem.isSuccess) setData(handleGetItem?.data?.data)
+    if(handleGetItem.isSuccess) {
+      setData(handleGetItem?.data?.data)
+    }
   }, [handleGetItem.data])
 
   useEffect(() => {
@@ -32,14 +34,16 @@ export function EditItem() {
     swalLoading();
     await updatedItem(id, data);
     swalSuccess("Medicina actualizada", null, () => history.push('/drugs'));
-  });
+  }, config.defaultReactQuery);
 
   const onSubmit = (data) => {
+    const groups = data.groups.map(group => group.id)
     handleUpdatedItem.mutate({
       code: data.code,
       name: data.name,
       description: data.description,
       photo: data.photo,
+      groups
     });
   };
 
@@ -49,7 +53,7 @@ export function EditItem() {
           <h2> Editar Medicina</h2>
           {data && (
             <ItemForm
-              schema={userSchema}
+              schema={editItemSchema}
               disabledFields={{
                 code: true,
               }}

@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import { Box, Button, Grid, InputLabel, MenuItem, Select, TextField, FormControl, FormHelperText } from "@mui/material";
+import { Box, Button, Grid, InputLabel, MenuItem, Select, TextField, FormControl, FormHelperText, Autocomplete } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { getAllSubsidiaries } from "../../../services/subsidiary.service";
+import { getAllGroups } from "../../../services/group.service";
 
 const UserForm = ({
   onSubmitItem,
@@ -28,12 +29,18 @@ const UserForm = ({
   };
   
   useEffect(() => {
-    getAllSubsidiaries()
-      .then(resp => {
-        setSubsidiaries(resp.data)
-      })
-      .catch(err => console.error(err))
+    init()
   }, [])
+
+  const init = async () => {
+    try{
+      const subsidiaries = await getAllSubsidiaries()
+      setSubsidiaries(subsidiaries?.data)
+    }
+    catch(err){
+      console.error(err)
+    }
+  }
 
   return (
     <Box

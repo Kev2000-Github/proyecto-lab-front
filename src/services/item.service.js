@@ -13,7 +13,7 @@ export const getItems = async ({queryKey}) => {
 
 export const getItem = async ({queryKey}) => {
     const id = queryKey[1]
-    const item = await sendRequest.Get(`${process.env.REACT_APP_URL}/item/${id}`)
+    const item = await sendRequest.Get(`${process.env.REACT_APP_URL}/item/${id}?withgroup=true`)
     return item
 }
 

@@ -1,7 +1,10 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getAllGroups } from "../../../services/group.service";
 
 const ItemForm = ({
   onSubmitItem,
@@ -10,14 +13,30 @@ const ItemForm = ({
   schema,
   disabledFields,
 }) => {
+  const [groups, setGroups] = useState([])
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    init()
+  },[])
+
+  const init = async () => {
+    try{
+      const groups = await getAllGroups()
+      setGroups(groups?.data)
+    }
+    catch(err){
+      console.err(err)
+    }
+  }
 
   const onSubmit = (data) => {
     onSubmitItem(data);
@@ -76,6 +95,38 @@ const ItemForm = ({
           />
         </Grid>
         <Grid item xs={12}>
+        <Controller
+          name="groups"
+          control={control}
+          defaultValue={defaultValues.groups}
+          render = {({field: {ref, ...field}, fieldState: {error}}) => (
+            <Autocomplete
+              {...field}
+              multiple
+              options={groups}
+              getOptionLabel={(option) => option.name}
+              onChange={(_, value) => field.onChange(value)}
+              isOptionEqualToValue={(op, val) => {
+                return op.id === val.id
+              }}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Grupos"
+                  placeholder="Grupos"
+                  error={!!errors.groups}
+                  helperText={errors.groups?.message} 
+                  disabled={disabledFields.groups}
+                  name="groups"
+                  inputRef={ref}
+                />
+              )}
+            />
+          )}
+        />
+        </Grid>
+        <Grid item xs={12}>
           <Button variant="contained" type="submit">
             {submitText}
           </Button>
@@ -101,12 +152,14 @@ ItemForm.defaultProps = {
     description: false,
     photo: false,
     code: false,
+    groups: false
   },
   defaultValues: {
     name: "",
     description: "",
     photo: "",
     code: "",
+    groups: []
   },
   submitText: "Guardar",
 };
