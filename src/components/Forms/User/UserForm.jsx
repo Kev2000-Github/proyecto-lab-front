@@ -148,7 +148,7 @@ UserForm.defaultProps = {
   defaultValues: {
     username: "",
     password: "",
-    subsidiaryId: "none",
+    subsidiaryId: "",
   },
   submitText: "Guardar",
 };

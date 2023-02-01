@@ -7,7 +7,8 @@ import {
   TableHead,
   TableRow
 } from "@material-ui/core";
-import { Button, Paper, TableContainer, TablePagination } from "@mui/material";
+import { Button, Paper, TableContainer, TablePagination, Box } from "@mui/material";
+import './style.scss'
 
 const useStyles = makeStyles({
   table: {
@@ -56,7 +57,9 @@ const TableComponent = ({
               <TableRow key={row.id}>
                 {columns.map((column) => (
                   <TableCell key={column.id}>
-                    {column.format ? column.format(row[column.id]) : row[column.id]}
+                    <Box sx={{width: column.width ?? 70}} className="noWrap">
+                      {column.format ? column.format(row[column.id]) : row[column.id]}
+                    </Box>
                   </TableCell>
                 ))}
                 {actions && (

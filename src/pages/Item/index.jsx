@@ -24,9 +24,9 @@ const onBrokenImage = (e) => {
 }
 
 const commonColumns = [
-  { id: "code", label: "Código" },
+  { id: "code", label: "Código", width: 30 },
   { id: "name", label: "Nombre" },
-  { id: "description", label: "Descripción" },
+  { id: "description", label: "Descripción", width: 200 },
   { id: "photo", label: "Foto", format: (value) => {
     return (
       <div className="item-icon">
