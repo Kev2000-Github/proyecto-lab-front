@@ -30,3 +30,8 @@ export const updateSubsidiary = async (id, data) => {
     const subsidiary = await sendRequest.Put(`${process.env.REACT_APP_URL}/subsidiary/${id}`, data)
     return subsidiary
 }
+
+export const getReport = async () => {
+    const reporte = await sendRequest.Get(`${process.env.REACT_APP_URL}/subsidiary/item`)
+    return reporte 
+}

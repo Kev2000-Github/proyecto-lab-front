@@ -7,6 +7,7 @@ import { CreateItem } from "../pages/Item/CreateItem";
 import { Login } from "../pages/Login";
 import { UserPage } from "../pages/User";
 import { GroupPage } from "../pages/Group";
+import { ReportList } from "../pages/Report";
 import { SubsidiaryPage } from "../pages/Subsidiary";
 import "./index.scss";
 import { EditSubsidiary } from "../pages/Subsidiary/EditSubsidiary";
@@ -46,6 +47,7 @@ function App() {
         <Route exact path="/subsidiaries" component={sideBarHOC(SubsidiaryPage)} />
         <Route exact path="/subsidiaries/edit/:id" component={sideBarHOC(EditSubsidiary)} />
         <Route exact path="/subsidiaries/create" component={sideBarHOC(CreateSubsidiary)} />
+        <Route exact path="/reporte" component={sideBarHOC(ReportList)} />
       </BrowserRouter>
     </QueryClientProvider>
   );
