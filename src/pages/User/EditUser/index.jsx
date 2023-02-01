@@ -22,7 +22,8 @@ export function EditUser() {
   useEffect(() => {
     if(handleGetUser.isSuccess){
       const user = handleGetUser?.data?.data
-      if(user?.Subsidiary?.id) user.subsidiaryId = user.Subsidiary.id
+      user.subsidiaryId = user?.Subsidiary?.id ?? 'none'
+
       setData(user)
     }
   }, [handleGetUser.data])

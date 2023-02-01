@@ -65,6 +65,7 @@ const UserForm = ({
           <TextField
             fullWidth
             {...register("password")}
+            type="password"
             error={!!errors.password}
             helperText={errors.password?.message}
             name="password"
@@ -140,7 +141,7 @@ UserForm.defaultProps = {
   defaultValues: {
     username: "",
     password: "",
-    subsidiaryId: "",
+    subsidiaryId: "none",
   },
   submitText: "Guardar",
 };

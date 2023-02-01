@@ -1,21 +1,32 @@
 import React from "react"
 import { useEffect } from "react";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import { config } from "../../config";
 import { getReport } from "../../services/subsidiary.service";
+import { swalClose, swalLoading, swalSuccess } from "../../utils/swal";
 import './style.scss';
 
 export function ReportList() {
-    
     const [report,setReport] = useState([])
-
-   async function init() {
-        const data = await getReport()
-        setReport(data.data)
-    }
+    const reportQuery = useQuery(
+      ["report-query"], 
+      getReport, 
+      config.defaultReactQuery
+    )
 
     useEffect(() => {
-        init()
-      },[])
+      reportQuery.refetch()
+    },[])
+
+    useEffect(() => {
+        if(reportQuery.isLoading) swalLoading()
+        else swalClose()
+    },[reportQuery.isLoading])
+
+    useEffect(() => {
+        if(reportQuery.isSuccess) setReport(reportQuery.data?.data)
+    },[reportQuery.data])
 
     return (
     <div className="body">

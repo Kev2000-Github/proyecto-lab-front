@@ -99,6 +99,10 @@ export function ItemPage() {
     if(itemsQuery.isSuccess) setItems(itemsQuery?.data)
   },[itemsQuery.data])
 
+  useEffect(() => {
+    setPage(0)
+  },[selectedGroupId, byNewItem])
+
   const handlePage = (_, newPage) => {
     setPage(newPage)
   }
