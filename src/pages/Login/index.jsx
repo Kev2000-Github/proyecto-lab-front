@@ -49,14 +49,14 @@ export function Login() {
                 <div className="field email">
                     <div className="input-area">
                         <PersonIcon/>
-                        <input type="text" placeholder=" Username"/>
+                        <input type="text" placeholder=" Username" required/>
                     </div>
                     <div className="error error-txt">Email no puede estar vacio</div>
                 </div>
                 <div className="field password">
                     <div className="input-area">
                         <LockIcon/>
-                        <input type="password" placeholder=" Password"/>
+                        <input type="password" placeholder=" Password" required/>
                     </div>
                     <div className="error error-txt">Password no puede estar vacio</div>
                 </div>

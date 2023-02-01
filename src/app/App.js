@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ItemPage } from "../pages/Item";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, setLogger } from "react-query";
 import { EditItem } from "../pages/Item/EditItem.jsx";
 import { CreateItem } from "../pages/Item/CreateItem";
 import { Login } from "../pages/Login";
@@ -30,7 +30,12 @@ const sideBarHOC = (Component) => (props) => {
 
 function App() {
   const queryClient = new QueryClient();
-
+  useEffect(() => {
+    setLogger({
+      warn: () => {},
+      error: () => {}
+    })
+  }, [])
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

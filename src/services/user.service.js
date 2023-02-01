@@ -24,7 +24,6 @@ export const createUser = async (data) => {
 export const updateUser = async (id, data) => {
     const user = await sendRequest.Put(`${process.env.REACT_APP_URL}/user/${id}`, data)
     const localUser = getLocalUser()
-    console.log()
     if(localUser?.id === user?.data?.id){
         const userData = {
             id: user?.data?.id,

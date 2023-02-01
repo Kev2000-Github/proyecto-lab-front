@@ -21,7 +21,6 @@ export function EditSubsidiary() {
 
   useEffect(() => {
     if(handleGetSubsidiary.isSuccess) {
-      console.log(data, handleGetSubsidiary?.data?.data)
       setData(handleGetSubsidiary?.data?.data)
     }
   }, [handleGetSubsidiary.data])

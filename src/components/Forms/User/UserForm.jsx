@@ -74,8 +74,10 @@ const UserForm = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControl>
-            <InputLabel id="select-sucursal-label">Sucursal</InputLabel>
+        <FormControl>
+          <InputLabel id="select-sucursal-label">Sucursal</InputLabel>
+          {
+            subsidiaries.length > 0 ?
             <Select
               {...register("subsidiaryId")}
               error={!!errors.subsidiaryId}
@@ -103,17 +105,22 @@ const UserForm = ({
                 ))
               }
             </Select>
-            {
-              !!errors.subsidiaryId ? 
-              <FormHelperText error>
-              {errors.subsidiaryId?.message}
-            </FormHelperText>
             :""
-            }
-          </FormControl>
+          }
+          {
+            !!errors.subsidiaryId ? 
+            <FormHelperText error>
+            {errors.subsidiaryId?.message}
+          </FormHelperText>
+          :""
+          }
+        </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" type="submit">
+          <Button
+            disabled = {subsidiaries.length <= 0}
+            variant="contained" 
+            type="submit">
             {submitText}
           </Button>
         </Grid>

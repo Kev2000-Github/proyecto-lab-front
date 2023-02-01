@@ -13,7 +13,9 @@ const columns = [
 
 export function GroupPage() {
   const history = useHistory()
-  const [data, setData] = useState([])
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [groups, setGroups] = useState({})
   const groupsQuery = useQuery('groups-query', getGroups, config.defaultReactQuery)
   const handleDeleteGroup = useMutation(
     async (id) => {
@@ -29,7 +31,7 @@ export function GroupPage() {
   },[])
 
   useEffect(() => {
-    if(groupsQuery.isSuccess) setData(groupsQuery?.data?.data)
+    if(groupsQuery.isSuccess) setGroups(groupsQuery?.data)
   }, [groupsQuery.data])
 
   useEffect(() => {
@@ -37,6 +39,14 @@ export function GroupPage() {
     else swalClose()
   }, [groupsQuery.isLoading]);
 
+  const handlePage = (_, newPage) => {
+    setPage(newPage)
+  }
+
+  const handleRowsPerPage = (e) => {
+    setRowsPerPage(Number(e.target.value))
+    setPage(0)
+  }
   
   const actions = [
     {
@@ -61,9 +71,14 @@ export function GroupPage() {
     <div className='main'>
       <div className='card'>
         <TableComponent 
-          data={data} 
+          data={groups?.data ?? []} 
           columns={columns} 
-          actions={actions} />
+          actions={actions}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          totalCount={groups?.count ?? 0}
+          handlePage={handlePage}
+          handleRowsPerPage={handleRowsPerPage} />
         <Button
           sx={{marginTop: 2}}
           className="card-create-btn"

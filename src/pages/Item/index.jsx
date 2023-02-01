@@ -82,7 +82,7 @@ export function ItemPage() {
         setGroups(resp.data)
       })
       .catch(err => {
-        console.log(err)
+        console.error(err)
       })
   },[])
 
